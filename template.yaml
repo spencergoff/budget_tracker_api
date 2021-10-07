@@ -24,7 +24,7 @@ Resources:
             Path: /hello
             Method: get
       Policies:
-        - ECR-read
+        - arn:aws:iam::621544995223:policy/ECR-read
 
     Metadata:
       Dockerfile: Dockerfile
