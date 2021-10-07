@@ -1,12 +1,11 @@
 import sys
 
 def main():
-    required_args = ['directory', 'image_repo']
+    required_args = ['image_repo']
     if len(sys.argv[1:]) < len(required_args):
         raise Exception(f'ERROR The following arguments are required: {required_args}')
-    directory = sys.argv[1]
-    image_repo = sys.argv[2]
-    version_file_path = f'{directory}/version.txt'
+    image_repo = sys.argv[1]
+    version_file_path = f'version.txt'
     current_version = get_current_version(version_file_path)
     new_version = int(current_version) + 1
     update_version_file(version_file_path, new_version)
