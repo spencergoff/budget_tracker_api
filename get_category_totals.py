@@ -1,11 +1,16 @@
 import os
-from flask import Flask
+import flask
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 @app.route('/')
 def hello_world(event, context):
-    return 'Hello from Python!'
+    body = 'Hello, world!'
+    return {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': body
+    }
 
 def running_in_aws_lambda():
     if os.environ.get('AWS_EXECUTION_ENV') == None:
