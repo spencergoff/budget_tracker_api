@@ -23,6 +23,9 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+      Policies:
+        - ECR-read
+
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./hello_world
