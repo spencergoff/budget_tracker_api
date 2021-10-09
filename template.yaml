@@ -23,7 +23,7 @@ Resources:
         - arn:aws:iam::621544995223:policy/ECR-read
     Metadata:
       Dockerfile: Dockerfile
-      DockerContext: .
+      DockerContext: ./
       DockerTag: python3.9-v1
 
 Outputs:
