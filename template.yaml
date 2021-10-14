@@ -7,7 +7,7 @@ Globals:
     Timeout: 3
 
 Resources:
-  HelloWorldFunction:
+  GetCategoryTotals:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
@@ -27,12 +27,12 @@ Resources:
       DockerTag: python3.9-v1
 
 Outputs:
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+  GetCategoryTotalsApi:
+    Description: "API Gateway endpoint URL for Prod stage for the GetCategoryTotals function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  GetCategoryTotals:
+    Description: "GetCategoryTotals Lambda Function ARN"
+    Value: !GetAtt GetCategoryTotals.Arn
+  GetCategoryTotalsIamRole:
+    Description: "Implicit IAM Role created for GetCategoryTotals function"
+    Value: !GetAtt GetCategoryTotalsRole.Arn
