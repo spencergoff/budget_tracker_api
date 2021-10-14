@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - feature/*
+      - main
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
