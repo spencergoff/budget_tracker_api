@@ -36,7 +36,7 @@ Outputs:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
   !Sub "GetCategoryTotals-${env}":
     Description: !Sub "GetCategoryTotals-${env} Lambda Function ARN"
-    Value: !GetAtt !Sub GetCategoryTotals-${env}.Arn
+    Value: !GetAtt !Sub "GetCategoryTotals-${env}.Arn"
   GetCategoryTotalsIamRole:
     Description: !Sub "Implicit IAM Role created for GetCategoryTotals-${env} function"
     Value: !GetAtt GetCategoryTotalsRole.Arn
