@@ -21,4 +21,4 @@ jobs:
       # Run Unit tests- Specify unit tests here
 
       # sam deploy
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name budget-tracker-api --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2 --parameter-overrides environment=qa
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name budget-tracker-api --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2 --parameter-overrides environment=dev
