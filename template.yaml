@@ -11,7 +11,7 @@ Globals:
     Timeout: 3
 
 Resources:
-  GetCategoryTotals:
+  !Sub "GetCategoryTotals-${env}":
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
@@ -32,11 +32,11 @@ Resources:
 
 Outputs:
   GetCategoryTotalsApi:
-    Description: "API Gateway endpoint URL for Prod stage for the GetCategoryTotals function"
+    Description: !Sub "API Gateway endpoint URL for Prod stage for the GetCategoryTotals-${env} function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  GetCategoryTotals:
-    Description: "GetCategoryTotals Lambda Function ARN"
-    Value: !GetAtt GetCategoryTotals.Arn
+  !Sub "GetCategoryTotals-${env}":
+    Description: !Sub "GetCategoryTotals-${env} Lambda Function ARN"
+    Value: !GetAtt !Sub GetCategoryTotals-${env}.Arn
   GetCategoryTotalsIamRole:
-    Description: "Implicit IAM Role created for GetCategoryTotals function"
+    Description: !Sub "Implicit IAM Role created for GetCategoryTotals-${env} function"
     Value: !GetAtt GetCategoryTotalsRole.Arn
