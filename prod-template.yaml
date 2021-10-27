@@ -36,4 +36,4 @@ Outputs:
     Value: "GetCategoryTotalsProd.Arn"
   GetCategoryTotalsIamRoleProd:
     Description: "Implicit IAM Role created for GetCategoryTotalsProd function"
-    Value: !GetAtt GetCategoryTotalsRole.Arn
+    Value: !GetAtt GetCategoryTotalsProdRole.Arn
