@@ -17,6 +17,7 @@ jobs:
           aws-region: us-west-2
       - run: sam delete --no-prompts --stack-name budget-tracker-api --region us-west-2
       - run: sam build --template prod-template.yaml --use-container
+      - run: cat .aws-sam/build/template.yaml
 
       # Run Unit tests- Specify unit tests here
 
