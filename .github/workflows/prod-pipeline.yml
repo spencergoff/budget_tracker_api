@@ -23,5 +23,10 @@ jobs:
       - run: sam delete --no-prompts --stack-name ${{ env.QA_STACK_NAME }} --region us-west-2
       - run: sam build --template prod-template.yaml --use-container
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.QA_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
-      - run: aws cloudformation describe-stacks --stack-name ${{ env.QA_STACK_NAME }}
+      - id: get_qa_endpoint
+        run: |
+          stack_description="$(aws cloudformation describe-stacks --stack-name ${{ env.QA_STACK_NAME }})"
+          printf "stack_description: $stack_description"
+          echo "::set-output name=stack_description::$stack_description"
+      - run: echo "${{fromJson(steps.get_qa_endpoint.outputs.stack_description)}}"
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.PROD_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
