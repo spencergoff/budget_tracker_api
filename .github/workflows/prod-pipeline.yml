@@ -27,7 +27,8 @@ jobs:
         run: |
           stack_description="$(aws cloudformation describe-stacks --stack-name ${{ env.QA_STACK_NAME }})"
           printf "stack_description: $stack_description"
-          echo "::set-output name=stack_description::$stack_description"
-          echo "stack_description=$stack_description" >> $GITHUB_ENV
-      - run: echo "${{ env.stack_description }}"
+          qa_endpoint=$(echo $stack_description | jq .Stacks[0])
+          printf "qa_endpoint: $qa_endpoint"
+          echo "qa_endpoint=$qa_endpoint" >> $GITHUB_ENV
+      - run: echo "${{ env.qa_endpoint }}"
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.PROD_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
