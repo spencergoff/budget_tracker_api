@@ -26,9 +26,13 @@ jobs:
       - id: get_qa_endpoint
         run: |
           stack_description="$(aws cloudformation describe-stacks --stack-name ${{ env.QA_STACK_NAME }})"
-          printf "stack_description: $stack_description"
-          qa_endpoint=$(echo $stack_description | jq .Stacks[0])
-          printf "qa_endpoint: $qa_endpoint"
+          printf "stack_description: $stack_description \n"
+          qa_endpoint=$(echo $stack_description | jq .Stacks[0].Outputs[1].OutputValue)
+          printf "qa_endpoint: $qa_endpoint \n"
+          if [[ $qa_endpoint != *"https"* ]]; then\
+            echo "ERROR: qa_endpoint did not contain https "\
+            exit 1\
+          fi
           echo "qa_endpoint=$qa_endpoint" >> $GITHUB_ENV
       - run: echo "${{ env.qa_endpoint }}"
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.PROD_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
