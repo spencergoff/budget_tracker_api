@@ -22,6 +22,7 @@ Resources:
             Method: get
       Policies:
         - arn:aws:iam::621544995223:policy/ECR-read
+      AutoPublishAlias: live
       DeploymentPreference:
         Type: LambdaCanary10Percent5Minutes
     Metadata:
