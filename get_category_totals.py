@@ -5,5 +5,5 @@ def hello_world(event, context):
     return {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json'},
-        'body': 'Hello, world'
+        'body': 'Hello, world!'
     }

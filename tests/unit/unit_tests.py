@@ -10,7 +10,7 @@ class AllTests(unittest.TestCase):
         expected_return = {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
-            'body': 'body'
+            'body': 'Hello, world!'
         }
         actual_return = hello_world('event', 'context')
         self.assertEqual(expected_return, actual_return)
