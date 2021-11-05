@@ -21,6 +21,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
       - run: pip install -r requirements.txt
+      - run: python -m tests.unit.unit_tests
       - run: sam delete --no-prompts --stack-name ${{ env.QA_STACK_NAME }} --region us-west-2
       - run: sam build --template prod-template.yaml --use-container
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.QA_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
