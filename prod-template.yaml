@@ -22,6 +22,7 @@ Resources:
             Method: get
       Policies:
         - arn:aws:iam::621544995223:policy/ECR-read
+        - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForCloudFormation
       AutoPublishAlias: live
       DeploymentPreference:
         Type: LambdaCanary10Percent5Minutes
