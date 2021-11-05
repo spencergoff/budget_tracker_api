@@ -22,6 +22,8 @@ Resources:
             Method: get
       Policies:
         - arn:aws:iam::621544995223:policy/ECR-read
+      DeploymentPreference:
+        Type: LambdaCanary10Percent5Minutes
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./
