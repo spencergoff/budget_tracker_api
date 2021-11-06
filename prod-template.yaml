@@ -25,7 +25,7 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForCloudFormation
       AutoPublishAlias: live
       DeploymentPreference:
-        Type: LambdaCanary10Percent5Minutes
+        Type: LambdaCanary10Percent1Minute
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./
