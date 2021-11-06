@@ -8,7 +8,7 @@ Globals:
     Timeout: 3
 
 Resources:
-  GetCategoryTotalsProd:
+  GetCategoryTotals:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
@@ -32,12 +32,12 @@ Resources:
       DockerTag: python3.9-v1
 
 Outputs:
-  GetCategoryTotalsApiProd:
-    Description: "API Gateway endpoint URL for Prod stage for the GetCategoryTotalsProd function"
+  GetCategoryTotalsApi:
+    Description: "API Gateway endpoint URL for the GetCategoryTotals function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  GetCategoryTotalsProd:
-    Description: "GetCategoryTotalsProd Lambda Function ARN"
-    Value: "GetCategoryTotalsProd.Arn"
-  GetCategoryTotalsIamRoleProd:
-    Description: "Implicit IAM Role created for GetCategoryTotalsProd function"
-    Value: !GetAtt GetCategoryTotalsProdRole.Arn
+  GetCategoryTotals:
+    Description: "GetCategoryTotals Lambda Function ARN"
+    Value: "GetCategoryTotals.Arn"
+  GetCategoryTotalsIamRole:
+    Description: "Implicit IAM Role created for GetCategoryTotals function"
+    Value: !GetAtt GetCategoryTotalsRole.Arn
