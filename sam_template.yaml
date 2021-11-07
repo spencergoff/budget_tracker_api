@@ -1,17 +1,14 @@
+---
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: SAM Template for budget-tracker-api
-
-Parameters:
-  env:
-    Type: String
 
 Globals:
   Function:
     Timeout: 3
 
 Resources:
-  !Sub "GetCategoryTotals-${env}":
+  GetCategoryTotals:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
@@ -25,6 +22,10 @@ Resources:
             Method: get
       Policies:
         - arn:aws:iam::621544995223:policy/ECR-read
+        - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForCloudFormation
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: LambdaCanary10Percent1Minute
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./
@@ -32,11 +33,11 @@ Resources:
 
 Outputs:
   GetCategoryTotalsApi:
-    Description: !Sub "API Gateway endpoint URL for Prod stage for the GetCategoryTotals-${env} function"
+    Description: "API Gateway endpoint URL for the GetCategoryTotals function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
   GetCategoryTotals:
-    Description: !Sub "GetCategoryTotals-${env} Lambda Function ARN"
-    Value: !GetAtt GetCategoryTotals.Arn
+    Description: "GetCategoryTotals Lambda Function ARN"
+    Value: "GetCategoryTotals.Arn"
   GetCategoryTotalsIamRole:
     Description: "Implicit IAM Role created for GetCategoryTotals function"
     Value: !GetAtt GetCategoryTotalsRole.Arn

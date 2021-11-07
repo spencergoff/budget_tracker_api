@@ -1,7 +1,13 @@
+---
 on:
   pull_request:
     branches:
       - main
+
+env:
+  QA_STACK_NAME: budget-tracker-api-qa
+  PROD_STACK_NAME: budget-tracker-api-prod
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -14,10 +20,21 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
-      - run: sam delete --no-prompts --stack-name budget-tracker-api --region us-west-2 
-      - run: sam build --use-container
-
-# Run Unit tests- Specify unit tests here 
-
-# sam deploy
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name budget-tracker-api --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2 --parameter-overrides environment=prod
+      - run: pip install -r requirements.txt
+      - run: python -m tests.unit.unit_tests
+      - run: sam delete --no-prompts --stack-name ${{ env.QA_STACK_NAME }} --region us-west-2
+      - run: sam build --template sam_template.yaml --use-container
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.QA_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
+      - id: get_qa_endpoint
+        run: |
+          stack_description="$(aws cloudformation describe-stacks --stack-name ${{ env.QA_STACK_NAME }})"
+          printf "stack_description: $stack_description \n"
+          qa_endpoint=$(echo $stack_description | jq .Stacks[0].Outputs[1].OutputValue)
+          printf "qa_endpoint: $qa_endpoint \n"
+          echo "qa_endpoint=$qa_endpoint" >> $GITHUB_ENV
+      - id: acceptance_tests
+        run: |
+          cd tests/acceptance
+          pytest acceptance_tests.py
+          cd ../..
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.PROD_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
