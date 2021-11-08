@@ -22,4 +22,4 @@ When a pull request is raised, the GitHub workflow called "prod-pipeline" is tri
 * Acceptance tests run against the QA instance (see tests/acceptance/acceptance_tests.py)
 * The image is deployed to the production environment, which is a Lambda function exposed by an API Gateway endpoint.
 
-If any of the above steps fail, the remaining steps are not executed and a failing status check is reported to the pull request that the workflow is building from.
+If any of the above steps fail, the remaining steps are not executed and a failing status check is reported to the pull request that the workflow is building from. If a step involving AWS SAM fails, any resources created during the step are automatically deleted. 
