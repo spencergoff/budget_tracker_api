@@ -16,8 +16,10 @@ The following process is used to deploy code into production:
 When a pull request is raised, the GitHub workflow called "prod-pipeline" is triggered. (This workflow is defined in .github/workflows/prod-pipeline.yml.)
 
 * Dependencies are installed on the workflow server.
-* Unit tests run. 
-* A Docker image is built and uploaded to Amazon ECR.
-* The image is deployed to the QA environment, which is a 
+* Unit tests run (see tests/unit/unit_tests.py). 
+* A Docker image is built and uploaded to Amazon ECR using an AWS SAM template (as defined in sam_template.yaml).
+* The image is deployed to the QA environment, which is a Lambda function exposed by an API Gateway endpoint. 
+* Acceptance tests run against the QA instance (see tests/acceptance/acceptance_tests.py)
+* The image is deployed to the production environment, which is a Lambda function exposed by an API Gateway endpoint.
 
 If any of the above steps fail, the remaining steps are not executed and a failing status check is reported to the pull request that the workflow is building from.
