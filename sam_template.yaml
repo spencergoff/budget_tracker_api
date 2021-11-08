@@ -29,7 +29,6 @@ Resources:
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./
-      DockerTag: python3.9-v1
 
 Outputs:
   GetCategoryTotalsApi:
