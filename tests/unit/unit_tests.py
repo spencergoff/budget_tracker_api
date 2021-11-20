@@ -2,7 +2,7 @@
 # python -m tests.unit.unit_tests
 
 import unittest
-from get_category_totals import hello_world
+from src.get_category_totals import hello_world
 
 class AllTests(unittest.TestCase):
 
