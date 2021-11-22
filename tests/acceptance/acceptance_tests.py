@@ -17,7 +17,7 @@ class TestClass:
     def test_givenUser_whenUserOpensHomePage_thenUsersWeeklyTotalShows(self):
         expected_weekly_total = get_expected_weekly_total()
         assert self.get_home_page_text() == expected_weekly_total
-    
+
     def get_home_page_text(self):
         qa_endpoint = os.environ["qa_endpoint"].strip('"')
         print(f'qa_endpoint: {qa_endpoint}')
