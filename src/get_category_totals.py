@@ -8,5 +8,5 @@ def hello_world(event, context):
         'body': 'Hello, world!'
     }
 
-def get_expected_weekly_total():
+def calculate_weekly_total():
     return ''
