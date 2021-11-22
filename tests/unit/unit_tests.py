@@ -15,10 +15,11 @@ class AllTests(unittest.TestCase):
         actual_return = hello_world('event', 'context')
         self.assertEqual(expected_return, actual_return)
 
-    def test_calculate_weekly_total():
+    def test_add_dollar_amounts(self):
         given_dollar_amounts = [1.09, 2.37, 8245.99]
-        expected_total = 8249.45
-        calculated_total = calculate_weekly_total(given_dollar_amounts)
+        expected_total = '$8,249.45'
+        calculated_total = add_dollar_amounts(given_dollar_amounts)
+        print(f'expected_total: {expected_total} | calculated_total: {calculated_total}')
         assert calculated_total == expected_total
 
 if __name__ == '__main__':

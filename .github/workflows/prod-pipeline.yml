@@ -21,6 +21,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
       - run: pip install -r requirements.txt
+      - run: echo $PYTHONPATH
       - run: python -m tests.unit.unit_tests
       - run: sam delete --no-prompts --stack-name ${{ env.QA_STACK_NAME }} --region us-west-2
       - run: sam build --template sam_template.yaml --use-container
