@@ -1,4 +1,5 @@
 import os
+import requests
 
 def hello_world(event, context):
     body = 'Hello, world!'
@@ -10,6 +11,10 @@ def hello_world(event, context):
 
 # def calculate_weekly_total(dollar_amounts):
 #     return ''
+
+def get_transactions_data(url):
+    transactions_data = requests.get(url).json()
+    return transactions_data
 
 def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transactions_get):
     amounts = []

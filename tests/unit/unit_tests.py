@@ -1,9 +1,11 @@
 # To execute these tests, go to the root directory of this repo and use the command:
 # python tests.unit.unit_tests
-# If the above command doesn't work, try: PYTHONPATH=. python tests/unit/unit_tests.py
+# If the above command doesn't work, try: PYTHONPATH=. python3 tests/unit/unit_tests.py
 
 import json
 import unittest
+import requests
+import responses
 from src.get_category_totals import *
 
 class AllTests(unittest.TestCase):
@@ -29,6 +31,14 @@ class AllTests(unittest.TestCase):
         extracted_amounts = extract_dollar_amounts_from_plaid_transactions_get(given_payload)
         expected_amounts = [2307.21]
         assert extracted_amounts == expected_amounts
+    
+    @responses.activate
+    def test_get_transactions_data(self):
+        url = 'http://spencerisawesome.fyi/api/1/foobar'
+        expected_response = {'hello': 'there'}
+        responses.add(responses.GET, url, json={'hello': 'there'}, status=200)
+        actual_response = get_transactions_data(url)
+        assert expected_response == actual_response
 
 if __name__ == '__main__':
     unittest.main()
