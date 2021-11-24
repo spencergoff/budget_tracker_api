@@ -10,13 +10,13 @@ from src.get_category_totals import *
 
 class AllTests(unittest.TestCase):
 
-    def test_hello_world(self):
+    def test_main(self):
         expected_return = {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
             'body': 'Hello, world!'
         }
-        actual_return = hello_world('event', 'context')
+        actual_return = main('event', 'context')
         self.assertEqual(expected_return, actual_return)
 
     def test_add_dollar_amounts(self):
@@ -33,12 +33,19 @@ class AllTests(unittest.TestCase):
         assert extracted_amounts == expected_amounts
     
     @responses.activate
-    def test_get_transactions_data(self):
+    def test_get_transactions_data_successful(self):
         url = 'http://spencerisawesome.fyi/api/1/foobar'
         expected_response = {'hello': 'there'}
-        responses.add(responses.GET, url, json={'hello': 'there'}, status=200)
+        responses.add(responses.GET, url, json=expected_response, status=200)
         actual_response = get_transactions_data(url)
         assert expected_response == actual_response
+
+    @responses.activate
+    def test_get_transactions_data_unsuccessful(self):
+        url = 'http://spencerisawesome.fyi/api/1/foobarbazz'
+        responses.add(responses.GET, url, status=404)
+        with self.assertRaises(Exception):
+            get_transactions_data(url)
 
 if __name__ == '__main__':
     unittest.main()
