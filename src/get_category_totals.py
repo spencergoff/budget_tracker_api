@@ -55,5 +55,8 @@ def get_secret(secret_name):
         region_name=region_name
     )
     get_secret_value_response = client.get_secret_value(SecretId=secret_name)
-    secret = json.loads(get_secret_value_response['SecretString'])[secret_name]
+    all_secrets = json.loads(get_secret_value_response['SecretString'])
+    print(f'all_secrets: {all_secrets}')
+    print(f'all_secrets.keys(): {all_secrets.keys()}')
+    secret = all_secrets[secret_name]
     return secret
