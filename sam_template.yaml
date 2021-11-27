@@ -23,6 +23,7 @@ Resources:
       Policies:
         - arn:aws:iam::621544995223:policy/ECR-read
         - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForCloudFormation
+        - arn:aws:iam::aws:policy/SecretsManagerReadWrite
       AutoPublishAlias: live
       DeploymentPreference:
         Type: LambdaCanary10Percent1Minute
