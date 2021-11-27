@@ -24,7 +24,7 @@ def get_transactions_data(url_plaid_transactions_get):
             "end_date": "2021-11-27"
             }
     headers = {"Content-Type": "application/json"}
-    transactions_response = requests.post(url_plaid_transactions_get, data=json.dumps(data), headers=json.dumps(headers))
+    transactions_response = requests.post(url_plaid_transactions_get, data=data, headers=headers)
     if transactions_response.ok == False:
         print(f'There was a {transactions_response.status_code} error getting the transactions data: {transactions_response.reason}')
         raise Exception(transactions_response.reason)
