@@ -24,9 +24,9 @@ def get_transactions_data(url_plaid_transactions_get):
             "end_date": "2021-11-27"
             }
     headers = {"Content-Type": "application/json"}
-    transactions_response = requests.post(url_plaid_transactions_get, data=data, headers=headers)
+    transactions_response = requests.post(url_plaid_transactions_get, data=json.dumps(data), headers=headers)
     if transactions_response.ok == False:
-        explanation = f'There was a {transactions_response.status_code} error getting the transactions data: {transactions_response.reason}. \n\n data: {data} \n\n headers: {headers}'
+        explanation = f'There was a {transactions_response.status_code} error getting the transactions data: {transactions_response.reason}. \n\n headers: {headers}'
         print(explanation)
         raise Exception(explanation)
     transactions_json = transactions_response.json()
@@ -56,7 +56,5 @@ def get_secret(secret_name):
     )
     get_secret_value_response = client.get_secret_value(SecretId=secret_name)
     all_secrets = json.loads(get_secret_value_response['SecretString'])
-    print(f'all_secrets: {all_secrets}')
-    print(f'all_secrets.keys(): {all_secrets.keys()}')
     secret = all_secrets[secret_name]
     return secret
