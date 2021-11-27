@@ -55,5 +55,5 @@ def get_secret(secret_name):
         region_name=region_name
     )
     get_secret_value_response = client.get_secret_value(SecretId=secret_name)
-    secret = get_secret_value_response['SecretString']
+    secret = get_secret_value_response['SecretString']['secret_name']
     return secret
