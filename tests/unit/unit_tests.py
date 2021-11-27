@@ -10,14 +10,14 @@ from src.get_category_totals import *
 
 class AllTests(unittest.TestCase):
 
-    def test_main(self):
-        expected_return = {
-            'statusCode': 200,
-            'headers': {'Content-Type': 'application/json'},
-            'body': 'Hello, world!'
-        }
-        actual_return = main('event', 'context')
-        self.assertEqual(expected_return, actual_return)
+    # def test_main(self):
+    #     expected_return = {
+    #         'statusCode': 200,
+    #         'headers': {'Content-Type': 'application/json'},
+    #         'body': 'Hello, world!'
+    #     }
+    #     actual_return = main('event', 'context')
+    #     self.assertEqual(expected_return, actual_return)
 
     def test_add_dollar_amounts(self):
         given_dollar_amounts = [1.09, 2.37, 8245.99]
@@ -34,7 +34,7 @@ class AllTests(unittest.TestCase):
     
     @responses.activate
     def test_get_transactions_data_successful(self):
-        url = 'http://spencerisawesome.fyi/api/1/foobar'
+        url = 'https://production.plaid.com/transactions/get'
         expected_response = {'hello': 'there'}
         responses.add(responses.GET, url, json=expected_response, status=200)
         actual_response = get_transactions_data(url)
@@ -42,10 +42,16 @@ class AllTests(unittest.TestCase):
 
     @responses.activate
     def test_get_transactions_data_unsuccessful(self):
-        url = 'http://spencerisawesome.fyi/api/1/foobarbazz'
+        url = 'https://production.plaid.com/transactions/get'
         responses.add(responses.GET, url, status=404)
         with self.assertRaises(Exception):
             get_transactions_data(url)
+    
+    def test_calculate_weekly_total(self):
+        expected_weekly_total = 123.45
+        calculated_weekly_total = calculate_weekly_total()
+        print(f'expected_weekly_total: {expected_weekly_total} | calculated_weekly_total: {calculated_weekly_total}')
+        assert expected_weekly_total == calculated_weekly_total
 
 if __name__ == '__main__':
     unittest.main()
