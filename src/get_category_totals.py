@@ -15,7 +15,7 @@ def calculate_weekly_total():
 
 def get_transactions_data(url_plaid_transactions_get):
     plaid_dev_secret = get_secret('plaid_dev_secret')
-    plaid_dev_access_token = get_secret('plaid_dev_access_token')
+    plaid_dev_access_token = get_secret('access_token')
     data = {
             "client_id": "5f49268da466f10010ef7ce2",
             "secret": plaid_dev_secret,
