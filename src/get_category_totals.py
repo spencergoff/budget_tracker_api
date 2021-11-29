@@ -3,10 +3,12 @@ import boto3
 import requests
 
 def main(event, context):
+    print(f'Made it to main')
     total = calculate_weekly_total()
     return total
 
 def calculate_weekly_total():
+    print(f'Made it to calculate_weekly_total')
     url_plaid_transactions_get = 'https://development.plaid.com/transactions/get'
     transactions_data = get_transactions_data(url_plaid_transactions_get)
     transaction_amounts = extract_dollar_amounts_from_plaid_transactions_get(transactions_data)
@@ -14,6 +16,7 @@ def calculate_weekly_total():
     return total
 
 def get_transactions_data(url_plaid_transactions_get):
+    print(f'Made it to get_transactions_data')
     plaid_dev_secret = get_secret('plaid_dev_secret')
     plaid_dev_access_token = get_secret('plaid_dev_access_token')
     data = {
@@ -26,13 +29,14 @@ def get_transactions_data(url_plaid_transactions_get):
     headers = {"Content-Type": "application/json"}
     transactions_response = requests.post(url_plaid_transactions_get, data=json.dumps(data), headers=headers)
     if transactions_response.ok == False:
-        explanation = f'There was a {transactions_response.status_code} error getting the transactions data: {transactions_response.reason}.  \n\n data: {data} \n\n headers: {headers}'
+        explanation = f'There was a {transactions_response.status_code} error getting the transactions data: {transactions_response.reason}. \n\n headers: {headers}'
         print(explanation)
         raise Exception(explanation)
     transactions_json = transactions_response.json()
     return transactions_json
 
 def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transactions_get):
+    print(f'Made it to extract_dollar_amounts_from_plaid_transactions_get')
     amounts = []
     transactions = payload_plaid_transactions_get['transactions']
     for transaction in transactions:
@@ -41,6 +45,7 @@ def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transaction
     return amounts
 
 def add_dollar_amounts(dollar_amounts):
+    print(f'Made it to add_dollar_amounts')
     total = 0
     for amount in dollar_amounts:
         total = total + amount
@@ -48,6 +53,7 @@ def add_dollar_amounts(dollar_amounts):
     return formated_total
 
 def get_secret(secret_name):
+    print(f'Made it to get_secret')
     region_name = 'us-east-1'
     session = boto3.session.Session()
     client = session.client(

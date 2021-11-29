@@ -19,6 +19,12 @@ class AllTests(unittest.TestCase):
     #     actual_return = main('event', 'context')
     #     self.assertEqual(expected_return, actual_return)
 
+    def test_calculate_weekly_total(self):
+        expected_weekly_total = 123.45
+        calculated_weekly_total = calculate_weekly_total()
+        print(f'expected_weekly_total: {expected_weekly_total} | calculated_weekly_total: {calculated_weekly_total}')
+        assert expected_weekly_total == calculated_weekly_total
+
     def test_add_dollar_amounts(self):
         given_dollar_amounts = [1.09, 2.37, 8245.99]
         expected_total = '$8,249.45'
@@ -46,12 +52,6 @@ class AllTests(unittest.TestCase):
         responses.add(responses.POST, url, status=404)
         with self.assertRaises(Exception):
             get_transactions_data(url)
-    
-    # def test_calculate_weekly_total(self):
-    #     expected_weekly_total = 123.45
-    #     calculated_weekly_total = calculate_weekly_total()
-    #     print(f'expected_weekly_total: {expected_weekly_total} | calculated_weekly_total: {calculated_weekly_total}')
-    #     assert expected_weekly_total == calculated_weekly_total
 
 if __name__ == '__main__':
     unittest.main()
