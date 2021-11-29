@@ -1,3 +1,6 @@
+import os
+import requests
+
 class Dsl:
     def get_home_page_text(self):
         qa_endpoint = os.environ["qa_endpoint"].strip('"')
