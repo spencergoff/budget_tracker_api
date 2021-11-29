@@ -5,7 +5,7 @@ Description: SAM Template for budget-tracker-api
 
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 10
 
 Resources:
   GetCategoryTotals:
