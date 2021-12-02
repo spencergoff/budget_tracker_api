@@ -5,7 +5,7 @@ import requests
 def main(event, context):
     print(f'Made it to main')
     total = calculate_weekly_total()
-    return total
+    return json.loads(total)
 
 def calculate_weekly_total():
     print(f'Made it to calculate_weekly_total')
@@ -52,6 +52,7 @@ def add_dollar_amounts(dollar_amounts):
     for amount in dollar_amounts:
         total = total + amount
     formated_total = "${:,.2f}".format(total)
+    print(f'formated_total: {formated_total}')
     return formated_total
 
 def get_secret(secret_name):
