@@ -5,6 +5,7 @@ import requests
 def main(event, context):
     print(f'Made it to main')
     total = calculate_weekly_total()
+    print(f'total: {total}')
     return json.loads(total)
 
 def calculate_weekly_total():
@@ -44,6 +45,7 @@ def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transaction
     for transaction in transactions:
         amount = transaction['amount']
         amounts.append(amount)
+    print(f'amounts: {amounts}')
     return amounts
 
 def add_dollar_amounts(dollar_amounts):
