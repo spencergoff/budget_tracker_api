@@ -33,10 +33,12 @@ def get_transactions_data(url_plaid_transactions_get):
         print(explanation)
         raise Exception(explanation)
     transactions_json = transactions_response.json()
+    print(f'transactions_json: {transactions_json}')
     return transactions_json
 
 def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transactions_get):
     print(f'Made it to extract_dollar_amounts_from_plaid_transactions_get')
+    print(f'payload_plaid_transactions_get: {payload_plaid_transactions_get}')
     amounts = []
     transactions = payload_plaid_transactions_get['transactions']
     for transaction in transactions:
