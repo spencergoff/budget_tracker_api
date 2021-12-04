@@ -6,7 +6,7 @@ def main(event, context):
     print(f'Made it to main')
     total = calculate_weekly_total()
     print(f'total: {total}')
-    return json.loads(total)
+    return total
 
 def calculate_weekly_total():
     print(f'Made it to calculate_weekly_total')
