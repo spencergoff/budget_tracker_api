@@ -7,7 +7,7 @@ def main(event, context):
     total = calculate_weekly_total()
     print(f'total: {total}')
     api_gateway_response = {
-        "isBase64Encoded": false,
+        "isBase64Encoded": False,
         "statusCode": 200,
         "headers": {},
         "body": total
