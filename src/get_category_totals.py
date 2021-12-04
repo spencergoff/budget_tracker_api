@@ -6,7 +6,13 @@ def main(event, context):
     print(f'Made it to main')
     total = calculate_weekly_total()
     print(f'total: {total}')
-    return total
+    api_gateway_response = {
+        "isBase64Encoded": false,
+        "statusCode": 200,
+        "headers": {},
+        "body": total
+    }
+    return api_gateway_response
 
 def calculate_weekly_total():
     print(f'Made it to calculate_weekly_total')
