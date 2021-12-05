@@ -23,7 +23,7 @@ class AllTests(unittest.TestCase):
     @responses.activate
     def test_calculate_weekly_total(self):
         warnings.filterwarnings(action="ignore", message="unclosed", category=ResourceWarning)
-        expected_weekly_total = "${:,.2f}".format(2307.21)
+        expected_weekly_total = "${:,.2f}".format(-2307.21)
         with open('tests/unit/mock_data/plaid/transactions/get.json', 'r') as f:
             given_payload = json.load(f)
         url = 'https://development.plaid.com/transactions/get'
@@ -61,7 +61,7 @@ class AllTests(unittest.TestCase):
     def test_add_dollar_amounts(self):
         warnings.filterwarnings(action="ignore", message="unclosed", category=ResourceWarning)
         given_dollar_amounts = [1.09, 2.37, 8245.99]
-        expected_total = '$8,249.45'
+        expected_total = '$-8,249.45'
         calculated_total = add_dollar_amounts(given_dollar_amounts)
         assert calculated_total == expected_total
 

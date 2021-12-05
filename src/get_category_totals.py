@@ -7,10 +7,10 @@ def main(event, context):
     total = calculate_weekly_total()
     print(f'total: {total}')
     api_gateway_response = {
-        "isBase64Encoded": False,
-        "statusCode": 200,
-        "headers": {},
-        "body": total
+        '"isBase64Encoded"': False,
+        '"statusCode"': 200,
+        '"headers"': {},
+        "body": f'Total spent this week: {total}'
     }
     return api_gateway_response
 
@@ -58,7 +58,7 @@ def add_dollar_amounts(dollar_amounts):
     print(f'Made it to add_dollar_amounts')
     total = 0
     for amount in dollar_amounts:
-        total = total + amount
+        total = total - amount
     formated_total = "${:,.2f}".format(total)
     print(f'formated_total: {formated_total}')
     return formated_total
