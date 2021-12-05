@@ -35,5 +35,5 @@ jobs:
           echo "qa_endpoint=$qa_endpoint" >> $GITHUB_ENV
       - id: acceptance_tests
         run: PYTHONPATH=. pytest tests/acceptance/acceptance_tests.py
-      - run: sam delete --no-prompts --stack-name ${{ env.PROD_STACK_NAME }} --region us-west-2
+      - run: sam delete --no-prompts --stack-name ${{ env.QA_STACK_NAME }} --region us-west-2
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.PROD_STACK_NAME }} --image-repository 621544995223.dkr.ecr.us-west-2.amazonaws.com/budget-tracker-ecr-backend --capabilities CAPABILITY_IAM --region us-west-2
