@@ -7,11 +7,12 @@ def main(event, context):
     total = calculate_weekly_total()
     print(f'total: {total}')
     api_gateway_response = {
-        '"isBase64Encoded"': False,
-        '"statusCode"': 200,
-        '"headers"': {},
-        "body": f'Total spent this week: {total}'
+        'isBase64Encoded': False,
+        'statusCode': 200,
+        'headers': {},
+        'body': f'Total spent this week: {total}'
     }
+    print(f'api_gateway_response: {api_gateway_response}')
     return api_gateway_response
 
 def calculate_weekly_total():
@@ -27,13 +28,13 @@ def get_transactions_data(url_plaid_transactions_get):
     plaid_dev_secret = get_secret('plaid_dev_secret')
     plaid_dev_access_token = get_secret('plaid_dev_access_token')
     data = {
-            "client_id": "5f49268da466f10010ef7ce2",
-            "secret": plaid_dev_secret,
-            "access_token": plaid_dev_access_token,
-            "start_date": "2021-11-20",
-            "end_date": "2021-11-27"
+            'client_id': '5f49268da466f10010ef7ce2',
+            'secret': plaid_dev_secret,
+            'access_token': plaid_dev_access_token,
+            'start_date': '2021-11-20',
+            'end_date': '2021-11-27'
             }
-    headers = {"Content-Type": "application/json"}
+    headers = {'Content-Type': 'application/json'}
     transactions_response = requests.post(url_plaid_transactions_get, data=json.dumps(data), headers=headers)
     if transactions_response.ok == False:
         explanation = f'There was a {transactions_response.status_code} error getting the transactions data: {transactions_response.reason}. \n\n headers: {headers}'
@@ -59,7 +60,7 @@ def add_dollar_amounts(dollar_amounts):
     total = 0
     for amount in dollar_amounts:
         total = total - amount
-    formated_total = "${:,.2f}".format(total)
+    formated_total = '${:,.2f}'.format(total)
     print(f'formated_total: {formated_total}')
     return formated_total
 
