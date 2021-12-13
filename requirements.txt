@@ -1,2 +1,4 @@
+responses
 requests
 pytest
+boto3
