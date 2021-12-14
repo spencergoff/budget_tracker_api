@@ -62,7 +62,7 @@ def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transaction
     amounts = []
     transactions = payload_plaid_transactions_get['transactions']
     for transaction in transactions:
-        if transaction['account_id'] == my_credit_card_account_id and 'Payment' in transaction['category']:
+        if transaction['account_id'] == my_credit_card_account_id and 'Payment' not in transaction['category']:
             amount = transaction['amount']
             amounts.append(amount)
     print(f'amounts: {amounts}')
