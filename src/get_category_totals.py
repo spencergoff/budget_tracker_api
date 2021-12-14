@@ -62,7 +62,7 @@ def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transaction
     amounts = []
     transactions = payload_plaid_transactions_get['transactions']
     for transaction in transactions:
-        if transaction['account_id'] == my_credit_card_account_id:
+        if transaction['account_id'] == my_credit_card_account_id and 'Payment' not in transaction['category']:
             amount = transaction['amount']
             amounts.append(amount)
     print(f'amounts: {amounts}')
@@ -72,7 +72,7 @@ def add_dollar_amounts(dollar_amounts):
     print(f'Made it to add_dollar_amounts')
     total = 0
     for amount in dollar_amounts:
-        total = total - amount
+        total = total + amount
     formated_total = '${:,.2f}'.format(total)
     print(f'formated_total: {formated_total}')
     return formated_total
