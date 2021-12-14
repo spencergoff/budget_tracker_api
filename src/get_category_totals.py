@@ -58,11 +58,13 @@ def get_transactions_data(url_plaid_transactions_get, start_date, end_date):
 def extract_dollar_amounts_from_plaid_transactions_get(payload_plaid_transactions_get):
     print(f'Made it to extract_dollar_amounts_from_plaid_transactions_get')
     print(f'payload_plaid_transactions_get: {payload_plaid_transactions_get}')
+    my_credit_card_account_id = 'eO50JxE95whkXAVjg7nZu4zJ4ynKjMCdbXen0'
     amounts = []
     transactions = payload_plaid_transactions_get['transactions']
     for transaction in transactions:
-        amount = transaction['amount']
-        amounts.append(amount)
+        if transaction['account_id'] == my_credit_card_account_id:
+            amount = transaction['amount']
+            amounts.append(amount)
     print(f'amounts: {amounts}')
     return amounts
 
