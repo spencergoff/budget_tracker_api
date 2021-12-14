@@ -65,14 +65,23 @@ def add_dollar_amounts(dollar_amounts):
     return formated_total
 
 def get_secret(secret_name):
-    print(f'Made it to get_secret')
+    print(f'Made it to get_secret with secret_name: {secret_name}')
     region_name = 'us-east-1'
     session = boto3.session.Session()
     client = session.client(
         service_name='secretsmanager',
         region_name=region_name
     )
-    get_secret_value_response = client.get_secret_value(SecretId=secret_name)
-    all_secrets = json.loads(get_secret_value_response['SecretString'])
-    secret = all_secrets[secret_name]
-    return secret
+    secret_payload = client.get_secret_value(SecretId=secret_name)
+    secret_value = extract_secret_from_payload(secret_name, secret_payload)
+    return secret_value
+
+def extract_secret_from_payload(secret_name, secret_payload):
+    try:
+        all_secrets = json.loads(secret_payload['SecretString'])
+    except:
+        secret_value = secret_payload['SecretString']
+    else:
+        secret_value = all_secrets[secret_name]
+    return secret_value
+    
