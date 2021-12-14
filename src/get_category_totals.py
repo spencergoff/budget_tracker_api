@@ -1,29 +1,40 @@
 import json
 import boto3
 import requests
+import datetime
+import calendar
 
 def main(event, context):
     print(f'Made it to main')
-    total = calculate_weekly_total()
+    start_date = get_last_thursday_date()
+    end_date = str(datetime.date.today())
+    total = calculate_weekly_total(start_date, end_date)
     print(f'total: {total}')
     api_gateway_response = {
         'isBase64Encoded': False,
         'statusCode': 200,
         'headers': {},
-        'body': f'Total spent this week: {total}'
+        'body': f'Total spent since Thursday: {total}'
     }
     print(f'api_gateway_response: {api_gateway_response}')
     return api_gateway_response
 
-def calculate_weekly_total():
+def get_last_thursday_date():
+    today = datetime.date.today()
+    offset = (today.weekday() - calendar.THURSDAY) % 7
+    last_thursday_date = str(today - datetime.timedelta(days=offset))
+    print(f'last_thursday_date: {last_thursday_date}')
+    return last_thursday_date
+
+def calculate_weekly_total(start_date, end_date):
     print(f'Made it to calculate_weekly_total')
     url_plaid_transactions_get = 'https://development.plaid.com/transactions/get'
-    transactions_data = get_transactions_data(url_plaid_transactions_get)
+    transactions_data = get_transactions_data(url_plaid_transactions_get, start_date, end_date)
     transaction_amounts = extract_dollar_amounts_from_plaid_transactions_get(transactions_data)
     total = add_dollar_amounts(transaction_amounts)
     return total
 
-def get_transactions_data(url_plaid_transactions_get):
+def get_transactions_data(url_plaid_transactions_get, start_date, end_date):
     print(f'Made it to get_transactions_data')
     plaid_dev_secret = get_secret('plaid_dev_secret')
     plaid_dev_access_token = get_secret('plaid_dev_access_token')
@@ -31,8 +42,8 @@ def get_transactions_data(url_plaid_transactions_get):
             'client_id': '5f49268da466f10010ef7ce2',
             'secret': plaid_dev_secret,
             'access_token': plaid_dev_access_token,
-            'start_date': '2021-11-20',
-            'end_date': '2021-11-27'
+            'start_date': start_date,
+            'end_date': end_date
             }
     headers = {'Content-Type': 'application/json'}
     transactions_response = requests.post(url_plaid_transactions_get, data=json.dumps(data), headers=headers)
