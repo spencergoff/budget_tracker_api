@@ -21,7 +21,7 @@ class AllTests(unittest.TestCase):
             'isBase64Encoded': False,
             'statusCode': 200,
             'headers': {},
-            'body': f'Total spent this week: {expected_total}'
+            'body': f'Total spent since Thursday: {expected_total}'
         }
         with open('tests/unit/mock_data/plaid/transactions/get.json', 'r') as f:
             get_transactions_payload = json.load(f)
@@ -38,7 +38,8 @@ class AllTests(unittest.TestCase):
             given_payload = json.load(f)
         url = 'https://development.plaid.com/transactions/get'
         responses.add(responses.POST, url, json=given_payload, status=200)
-        calculated_weekly_total = calculate_weekly_total()
+        start_date, end_date = '2021-11-20', '2021-11-27'
+        calculated_weekly_total = calculate_weekly_total(start_date, end_date)
         print(f'expected_weekly_total: {expected_weekly_total} | calculated_weekly_total: {calculated_weekly_total}')
         assert expected_weekly_total == calculated_weekly_total
     
@@ -48,7 +49,8 @@ class AllTests(unittest.TestCase):
         url = 'https://development.plaid.com/transactions/get'
         expected_response = {'hello': 'there'}
         responses.add(responses.POST, url, json=expected_response, status=200)
-        actual_response = get_transactions_data(url)
+        start_date, end_date = '2021-11-20', '2021-11-27'
+        actual_response = get_transactions_data(url, start_date, end_date)
         assert expected_response == actual_response
 
     @responses.activate
@@ -56,8 +58,9 @@ class AllTests(unittest.TestCase):
         warnings.filterwarnings(action='ignore', message='unclosed', category=ResourceWarning)
         url = 'https://development.plaid.com/transactions/get'
         responses.add(responses.POST, url, status=404)
+        start_date, end_date = '2021-11-20', '2021-11-27'
         with self.assertRaises(Exception):
-            get_transactions_data(url)
+            get_transactions_data(url, start_date, end_date)
     
     def test_extract_dollar_amounts_from_plaid_transactions_get(self):
         warnings.filterwarnings(action='ignore', message='unclosed', category=ResourceWarning)
