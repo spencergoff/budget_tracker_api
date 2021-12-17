@@ -18,16 +18,14 @@ class Dsl:
         end_date = get_todays_date()
         transactions_data = get_transactions_data(url_plaid_transactions_get, start_date, end_date)
         category_amounts = get_category_totals(transactions_data)
-        amount_spent_on_fun = category_amounts['fun']
-        amount_spent_on_predictable_necessities = category_amounts['predictable_necessities']
-        amount_spent_on_unpredictable_necessities = category_amounts['unpredictable_necessities']
-        amount_spent_on_other = category_amounts['other']
-        expected_home_page_text = f'Amounts spent since last Thursday\
-        total: ${expected_weekly_total} / $400\
-        fun: ${amount_spent_on_fun} / $150\
-        predictable_necessities: ${amount_spent_on_predictable_necessities} / $100\
-        unpredictable_necessities: ${amount_spent_on_unpredictable_necessities} / $50\
-        other: ${amount_spent_on_other} / $100'
+        total = add_dollar_amounts(category_amounts.values())
+        expected_home_page_text = f'\
+            Amounts spent since last Thursday\
+            total: {total} / $400\
+            fun: {category_amounts["fun"]} / $150\
+            predictable_necessities: {category_amounts["predictable_necessities"]} / $100\
+            unpredictable_necessities: {category_amounts["unpredictable_necessities"]} / $50\
+            other: {category_amounts["other"]} / $100'
         print(f'expected_home_page_text: {expected_home_page_text}')
         return expected_home_page_text
     
