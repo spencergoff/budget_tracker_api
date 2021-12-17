@@ -13,7 +13,11 @@ class Dsl:
         return qa_endpoint_content.text
     
     def build_expected_home_page_text(self):
-        category_amounts = get_category_totals()
+        url_plaid_transactions_get = 'https://development.plaid.com/transactions/get'
+        start_date = get_last_thursday_date()
+        end_date = get_todays_date()
+        transactions_data = get_transactions_data(url_plaid_transactions_get, start_date, end_date)
+        category_amounts = get_category_totals(transactions_data)
         amount_spent_on_fun = category_amounts['fun']
         amount_spent_on_predictable_necessities = category_amounts['predictable_necessities']
         amount_spent_on_unpredictable_necessities = category_amounts['unpredictable_necessities']
