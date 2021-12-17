@@ -1,0 +1,15 @@
+{
+    "Bank Fees": "unpredictable_necessities",
+    "Cash Advance": "unpredictable_necessities",
+    "Community": "unpredictable_necessities",
+    "Healthcare": "unpredictable_necessities",
+    "Service": "unpredictable_necessities",
+    "Tax": "unpredictable_necessities",
+    "Interest": "unpredictable_necessities",
+    "Payment": "unpredictable_necessities",
+    "Food and Drink": "fun",
+    "Recreation": "fun",
+    "Shops": "fun",
+    "Transfer": "other",
+    "Travel": "fun"
+}
