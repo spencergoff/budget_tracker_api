@@ -19,11 +19,11 @@ class AllTests(unittest.TestCase):
     def test_main(self):
         url = 'https://development.plaid.com/transactions/get'
         expected_body = f'\
-        Amounts spent since last Thursday\
-        total: $1,333.77 / $400\
-        fun: $1,234.56 / $150\
-        predictable_necessities: $0.00 / $100\
-        unpredictable_necessities: $99.21 / $50\
+        Amounts spent since last Thursday\n\
+        total: $1,333.77 / $400\n\
+        fun: $1,234.56 / $150\n\
+        predictable_necessities: $0.00 / $100\n\
+        unpredictable_necessities: $99.21 / $50\n\
         other: $0.00 / $100'
         expected_response = {
             'isBase64Encoded': False,

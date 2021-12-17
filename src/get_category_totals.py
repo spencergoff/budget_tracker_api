@@ -13,11 +13,11 @@ def main(event, context):
     category_amounts = get_category_totals(transactions_data)
     total = add_dollar_amounts(category_amounts.values())
     body = f'\
-        Amounts spent since last Thursday\
-        total: {total} / $400\
-        fun: {category_amounts["fun"]} / $150\
-        predictable_necessities: {category_amounts["predictable_necessities"]} / $100\
-        unpredictable_necessities: {category_amounts["unpredictable_necessities"]} / $50\
+        Amounts spent since last Thursday\n\
+        total: {total} / $400\n\
+        fun: {category_amounts["fun"]} / $150\n\
+        predictable_necessities: {category_amounts["predictable_necessities"]} / $100\n\
+        unpredictable_necessities: {category_amounts["unpredictable_necessities"]} / $50\n\
         other: {category_amounts["other"]} / $100'
     api_gateway_response = {
         'isBase64Encoded': False,
