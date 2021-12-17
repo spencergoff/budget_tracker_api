@@ -26,10 +26,11 @@ class Dsl:
         end_date = get_todays_date()
         expected_weekly_total = calculate_weekly_total(start_date, end_date)
         expected_home_page_text = f'Amounts spent since last Thursday\
-            total: ${expected_weekly_total} / $400\
-            fun: ${amount_spent_on_fun} / $150\
-            predictable_necessities: ${amount_spent_on_predictable_necessities} / $100\
-            unpredictable_necessities: ${amount_spent_on_unpredictable_necessities} / $50\
-            other: ${amount_spent_on_other} / $100'
+        total: ${expected_weekly_total} / $400\
+        fun: ${amount_spent_on_fun} / $150\
+        predictable_necessities: ${amount_spent_on_predictable_necessities} / $100\
+        unpredictable_necessities: ${amount_spent_on_unpredictable_necessities} / $50\
+        other: ${amount_spent_on_other} / $100'
+        print(f'expected_home_page_text: {expected_home_page_text}')
         return expected_home_page_text
     
