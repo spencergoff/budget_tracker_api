@@ -1,5 +1,22 @@
 # Budget Tracker API
 
+I want to track how much of my discretionary income I've spent since my last paycheck.
+
+Additionally, I want to see how much of the money I've spent has gone towards certain categories I've defined:
+- Fun (dining, entertainment, etc.)
+- Predictable Necessities (groceries, gas, etc.)
+- Unpredictable Necessities (car repairs/maintenance, medicine, etc.)
+- Other
+
+This project exposes a single endpoint that returns how much money I've spent in each of these categories in the current budgeting week, as well as the soft limits I've set for myself in each category. 
+
+The production endpoint is [here](https://bbww2k2tyd.execute-api.us-west-2.amazonaws.com/Prod/hello/). 
+
+Here's an example response (you can see that I was struggling to stay within my budget that week):
+
+![image info](./docs/resources/budget_tracker_api_results.png)
+
+
 ## Deployment Process
 The following process is used to deploy code into production:
 * Create a branch from main.
