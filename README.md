@@ -2,13 +2,13 @@
 
 I want to track how much of my discretionary income I've spent since my last paycheck.
 
-Addionally, I want to see how much of the money I've spent has gone towards certain categories I've defined:
+Additionally, I want to see how much of the money I've spent has gone towards certain categories I've defined:
 - Fun (dining, entertainment, etc.)
 - Predictable Necessities (groceries, gas, etc.)
 - Unpredictable Necessities (car repairs/maintenance, medicine, etc.)
 - Other
 
-This project exposes a single endpoint that returns how much money I've spent in each of my budgeting categories in the current budgeting week, as well as the soft limits I've set for myself in each category. 
+This project exposes a single endpoint that returns how much money I've spent in each of these categories in the current budgeting week, as well as the soft limits I've set for myself in each category. 
 
 
 
